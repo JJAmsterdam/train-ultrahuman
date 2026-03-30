@@ -97,18 +97,22 @@
       cursor: pointer;
       font-size: 0.95rem;
       line-height: 1;
+      opacity: 0.75;
     }
     .mood.active.bad {
       border-color: var(--bad);
       background: #fee2e2;
+      opacity: 1;
     }
     .mood.active.neutral {
       border-color: var(--neutral);
       background: #fef3c7;
+      opacity: 1;
     }
     .mood.active.good {
       border-color: var(--good);
       background: #dcfce7;
+      opacity: 1;
     }
     .note-btn {
       border: 1px solid var(--line);
@@ -229,7 +233,7 @@
     <div class="hero">
       <h1>Kalender Koning van Spanje</h1>
       <p class="sub"><strong>Race:</strong> zaterdag 9 mei 2026 - Koning van Spanje Trail 85 km</p>
-      <p class="sub">Vink trainingen af, kies je gevoel (rood/oranje/groen) en voeg per training notities toe.</p>
+      <p class="sub">Vink trainingen af, kies per training een smiley en voeg notities toe.</p>
     </div>
 
     <div id="weeks"></div>
@@ -393,9 +397,9 @@
           moods.className = "moods";
 
           const moodDefs = [
-            { key: "bad", text: "☹", title: "Verdrietig (rood)", cls: "bad" },
-            { key: "neutral", text: "😐", title: "Neutraal (oranje)", cls: "neutral" },
-            { key: "good", text: "☺", title: "Lachend (groen)", cls: "good" }
+            { key: "bad", text: "☹", title: "Verdrietig", cls: "bad" },
+            { key: "neutral", text: "😐", title: "Neutraal", cls: "neutral" },
+            { key: "good", text: "☺", title: "Lachend", cls: "good" }
           ];
 
           moodDefs.forEach((m) => {
@@ -404,6 +408,7 @@
             b.className = "mood " + m.cls + (s.mood === m.key ? " active " + m.cls : "");
             b.textContent = m.text;
             b.title = m.title;
+            b.setAttribute("aria-pressed", s.mood === m.key ? "true" : "false");
             b.addEventListener("click", () => {
               const st = getItemState(item.id);
               st.mood = st.mood === m.key ? "" : m.key;
