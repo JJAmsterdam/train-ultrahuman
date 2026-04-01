@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kalender Koning van Spanje</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
     :root {
       --bg: #f6f2ea;
       --card: #fffaf2;
@@ -21,7 +23,7 @@
       margin: 0;
       background: radial-gradient(circle at top right, #efe7d8, var(--bg) 45%);
       color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Montserrat", "Segoe UI", sans-serif;
     }
     .wrap {
       max-width: 920px;
@@ -41,6 +43,7 @@
     h1 {
       margin: 0 0 8px;
       font-size: 1.5rem;
+      font-family: "Dosis", "Montserrat", sans-serif;
     }
     .sub {
       color: var(--muted);
@@ -55,6 +58,7 @@
       margin: 0 0 10px;
       font-size: 1.1rem;
       color: #0b3f3a;
+      font-family: "Dosis", "Montserrat", sans-serif;
     }
     .item {
       border: 1px solid var(--line);
@@ -268,14 +272,14 @@
   <script>
     const schedule = [
       {
-        title: "Week 14 (ma 16 mrt - zo 22 mrt)",
+        title: "Week 12 (ma 16 mrt - zo 22 mrt)",
         items: [
           { id: "w14-wo", text: "Woensdag: 5 km rustig" },
           { id: "w14-za", text: "Zaterdag: 12 km rustig" }
         ]
       },
       {
-        title: "Week 15 (ma 23 mrt - zo 29 mrt)",
+        title: "Week 13 (ma 23 mrt - zo 29 mrt)",
         items: [
           { id: "w15-ma", text: "Maandag: 8 km rustig" },
           { id: "w15-wo-do", text: "Woensdag of donderdag (± 10 km): 2 km inlopen + 4 x 5 min heuvelop stevig + rustig naar beneden + 2 km uitlopen" },
@@ -283,7 +287,7 @@
         ]
       },
       {
-        title: "Week 16 (ma 30 mrt - zo 5 apr)",
+        title: "Week 14 (ma 30 mrt - zo 5 apr)",
         items: [
           { id: "w16-ma", text: "Maandag: 8 km rustig" },
           { id: "w16-wo-do", text: "Woensdag of donderdag (± 12 km): 2 km inlopen + 3 x 10 min tempo + 3 min rustig + 2 km uitlopen" },
@@ -291,7 +295,7 @@
         ]
       },
       {
-        title: "Week 17 (ma 6 apr - zo 12 apr)",
+        title: "Week 15 (ma 6 apr - zo 12 apr)",
         items: [
           { id: "w17-ma", text: "Maandag: 8 km rustig" },
           { id: "w17-wo-do", text: "Woensdag of donderdag (± 10 tot 11 km): 2 km inlopen + 8 tot 10 x 3 min klimmen + rustig naar beneden + 2 km uitlopen" },
@@ -299,7 +303,7 @@
         ]
       },
       {
-        title: "Week 18 (ma 13 apr - zo 19 apr, start 4x per week)",
+        title: "Week 16 (ma 13 apr - zo 19 apr, start 4x per week)",
         items: [
           { id: "w18-ma", text: "Maandag: 8 km rustig" },
           { id: "w18-wo-do", text: "Woensdag of donderdag (± 12 km): 2 km inlopen + 40 min steady tempo + 2 km uitlopen" },
@@ -308,7 +312,7 @@
         ]
       },
       {
-        title: "Week 19 (ma 20 apr - zo 26 apr) - Piekweek",
+        title: "Week 17 (ma 20 apr - zo 26 apr) - Piekweek",
         items: [
           { id: "w19-ma", text: "Maandag: 8 km rustig" },
           { id: "w19-wo-do", text: "Woensdag of donderdag (± 10 km): 2 km inlopen + 6 x 1 min krachtig heuvelop + rustig terug + 2 km uitlopen" },
@@ -317,7 +321,7 @@
         ]
       },
       {
-        title: "Week 20 (ma 27 apr - zo 3 mei) - Eerste taper",
+        title: "Week 18 (ma 27 apr - zo 3 mei) - Eerste taper",
         items: [
           { id: "w20-ma", text: "Maandag: 6 tot 7 km rustig" },
           { id: "w20-wo-do", text: "Woensdag of donderdag (± 8 tot 9 km): 2 km inlopen + 2 x 8 min tempo + 3 min rustig + 2 km uitlopen" },
@@ -326,7 +330,7 @@
         ]
       },
       {
-        title: "Week 21 (ma 4 mei - zo 10 mei) - Wedstrijdweek",
+        title: "Week 19 (ma 4 mei - zo 10 mei) - Wedstrijdweek",
         items: [
           { id: "w21-ma", text: "Maandag: 6 km rustig" },
           { id: "w21-wo-do", text: "Woensdag of donderdag (6 tot 8 km): 2 km inlopen + 3 tot 4 x 1 min vlot + 1 min rustig + 2 km uitlopen" },
