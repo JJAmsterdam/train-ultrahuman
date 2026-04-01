@@ -374,52 +374,35 @@
       }
     ];
 
-    const stateKey = "kalender-koning-van-spanje-v1";
-    const syncCodeKey = "kalender-koning-van-spanje-sync-code";
-    const syncUiHiddenKey = "kalender-koning-van-spanje-sync-hidden";
+    const stateKey = "kalender-koning-van-spanje-v1"; // legacy key; wordt opgeschoond
+    const syncCodeKey = "kalender-koning-van-spanje-sync-code"; // legacy key; wordt opgeschoond
+    const syncUiHiddenKey = "kalender-koning-van-spanje-sync-hidden"; // legacy key; wordt opgeschoond
     let state = loadState();
-    let syncCode = loadSyncCode();
-    let syncUiHidden = loadSyncUiHidden();
+    let syncCode = "";
+    let syncUiHidden = false;
     let pushTimer = null;
     let currentNoteId = null;
 
     function loadState() {
-      try {
-        const raw = localStorage.getItem(stateKey);
-        return raw ? JSON.parse(raw) : {};
-      } catch (_) {
-        return {};
-      }
+      return {};
     }
 
     function saveState() {
-      localStorage.setItem(stateKey, JSON.stringify(state));
       queueCloudPush();
-    }
-
-    function loadSyncCode() {
-      try {
-        return sanitizeSyncCode(localStorage.getItem(syncCodeKey) || "");
-      } catch (_) {
-        return "";
-      }
-    }
-
-    function saveSyncCode() {
-      localStorage.setItem(syncCodeKey, syncCode);
-    }
-
-    function loadSyncUiHidden() {
-      try {
-        return localStorage.getItem(syncUiHiddenKey) === "1";
-      } catch (_) {
-        return false;
-      }
     }
 
     function saveSyncUiHidden(value) {
       syncUiHidden = Boolean(value);
-      localStorage.setItem(syncUiHiddenKey, syncUiHidden ? "1" : "0");
+    }
+
+    function purgeLegacyLocalStorage() {
+      try {
+        localStorage.removeItem(stateKey);
+        localStorage.removeItem(syncCodeKey);
+        localStorage.removeItem(syncUiHiddenKey);
+      } catch (_) {
+        // noop
+      }
     }
 
     function applySyncRowVisibility() {
@@ -491,7 +474,6 @@
         return false;
       }
       state = rows[0].payload.state;
-      saveState();
       render();
       if (showMessage) setSyncNote("Clouddata geladen.", true);
       saveSyncUiHidden(true);
@@ -509,7 +491,7 @@
           saveSyncUiHidden(true);
           applySyncRowVisibility();
         } catch (_) {
-          setSyncNote("Lokaal opgeslagen, cloud sync tijdelijk mislukt.");
+          setSyncNote("Cloud sync tijdelijk mislukt. Niets lokaal opgeslagen.");
         }
       }, 500);
     }
@@ -659,7 +641,6 @@
     document.getElementById("syncCode").addEventListener("input", (e) => {
       syncCode = sanitizeSyncCode(e.target.value);
       e.target.value = syncCode;
-      saveSyncCode();
       if (syncCode.length < 6) {
         saveSyncUiHidden(false);
         applySyncRowVisibility();
@@ -708,8 +689,8 @@
     });
 
     async function init() {
+      purgeLegacyLocalStorage();
       render();
-      if (isValidSyncCode(syncCode)) saveSyncUiHidden(true);
       applySyncRowVisibility();
       if (isValidSyncCode(syncCode)) {
         try {
