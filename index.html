@@ -3,136 +3,496 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ultrahuman Social</title>
-  <meta name="description" content="Alle belangrijke links van Ultrahuman op een plek." />
+  <title>Kalender Koning van Spanje</title>
   <style>
     :root {
-      --bg: #f8f5ef;
-      --card: #ffffff;
-      --text: #1b1a18;
-      --muted: #6b655c;
-      --accent: #ef6c42;
-      --accent-hover: #d95a31;
-      --ring: #f2d4ca;
-      --radius: 16px;
+      --bg: #f6f2ea;
+      --card: #fffaf2;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #e6ddcf;
+      --accent: #0f766e;
+      --good: #22c55e;
+      --neutral: #f59e0b;
+      --bad: #ef4444;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: "Avenir Next", "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, #ffe8d5 0%, transparent 35%),
-        radial-gradient(circle at 90% 90%, #f9dcc4 0%, transparent 30%),
-        var(--bg);
-      display: grid;
-      place-items: center;
-      padding: 24px;
+      background: radial-gradient(circle at top right, #efe7d8, var(--bg) 45%);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
-    .card {
-      width: min(680px, 100%);
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 18px 14px 124px;
+    }
+    .hero, .week {
       background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-      padding: 28px;
-      border: 1px solid #efe7dc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
     }
-
-    .top {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 18px;
+    .hero {
+      padding: 16px;
+      margin-bottom: 12px;
     }
-
-    .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: #f2ede3;
-      font-size: 28px;
-    }
-
     h1 {
-      margin: 0;
-      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-      line-height: 1.2;
+      margin: 0 0 8px;
+      font-size: 1.5rem;
     }
-
-    .subtitle {
-      margin: 4px 0 0;
+    .sub {
       color: var(--muted);
-      font-size: 0.98rem;
+      margin: 4px 0;
+      font-size: 0.96rem;
     }
-
-    .links {
-      display: grid;
-      gap: 12px;
-      margin-top: 20px;
+    .week {
+      padding: 12px;
+      margin: 10px 0;
     }
-
-    .link {
-      display: block;
-      text-decoration: none;
-      background: #fff;
-      color: var(--text);
-      padding: 14px 16px;
+    .week h2 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      color: #0b3f3a;
+    }
+    .item {
+      border: 1px solid var(--line);
       border-radius: 12px;
-      border: 1px solid #ece3d5;
-      font-weight: 600;
-      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+      padding: 10px;
+      margin: 8px 0;
+      background: #fffefb;
     }
-
-    .link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-      border-color: var(--ring);
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
     }
-
-    .link.primary {
-      background: var(--accent);
+    .check {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+      flex: 0 0 auto;
+    }
+    .label {
+      flex: 1 1 320px;
+      line-height: 1.35;
+      font-size: 0.97rem;
+    }
+    .done .label {
+      text-decoration: line-through;
+      color: #667085;
+    }
+    .moods {
+      display: inline-flex;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+    .mood {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      line-height: 1;
+      opacity: 0.75;
+    }
+    .mood.active.bad {
+      border-color: var(--bad);
+      background: #fee2e2;
+      opacity: 1;
+    }
+    .mood.active.neutral {
+      border-color: var(--neutral);
+      background: #fef3c7;
+      opacity: 1;
+    }
+    .mood.active.good {
+      border-color: var(--good);
+      background: #dcfce7;
+      opacity: 1;
+    }
+    .note-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .note-btn.has-note {
+      border-color: #93c5fd;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      z-index: 20;
+    }
+    .modal.open { display: flex; }
+    .sheet {
+      width: min(560px, 100%);
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
+      padding: 14px;
+    }
+    .sheet h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 10px;
+      font: inherit;
+    }
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+    .btn.primary {
+      background: #0f766e;
       color: #fff;
-      border-color: var(--accent);
+      border-color: #0f766e;
     }
-
-    .link.primary:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
+    .btn.danger {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #be123c;
     }
-
     .foot {
-      margin-top: 18px;
+      margin-top: 14px;
       color: var(--muted);
       font-size: 0.9rem;
-      text-align: center;
+    }
+    .progress-dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 15;
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(255, 250, 242, 0.96);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(4px);
+    }
+    .progress-inner {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink);
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      gap: 10px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f59e0b, #22c55e);
+      transition: width 240ms ease;
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <section class="top">
-      <div class="avatar" aria-hidden="true">UH</div>
-      <div>
-        <h1>Ultrahuman</h1>
-        <p class="subtitle">Alle links die je zoekt, op een centrale social-pagina.</p>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Kalender Koning van Spanje</h1>
+      <p class="sub"><strong>Race:</strong> zaterdag 9 mei 2026 - Koning van Spanje Trail 85 km</p>
+      <p class="sub">Vink trainingen af, kies per training een smiley en voeg notities toe.</p>
+    </div>
+
+    <div id="weeks"></div>
+
+    <p class="foot">Alles wordt lokaal op je toestel opgeslagen (browseropslag).</p>
+  </div>
+
+  <div class="progress-dock" aria-live="polite">
+    <div class="progress-inner">
+      <div class="progress-meta">
+        <span>Voortgang tot race</span>
+        <strong id="progressPct">0%</strong>
       </div>
-    </section>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </div>
 
-    <section class="links" aria-label="Belangrijke links">
-      <a class="link primary" href="/social-trainingen.html">Social Trainingen Module</a>
-      <a class="link primary" href="https://train.ultrahuman.nl" target="_blank" rel="noopener">Trainingskalender Koning van Spanje</a>
-      <a class="link" href="https://ultrahuman.nl" target="_blank" rel="noopener">Website ultrahuman.nl</a>
-      <a class="link" href="https://instagram.com/" target="_blank" rel="noopener">Instagram profiel</a>
-      <a class="link" href="mailto:info@ultrahuman.nl">Contact via e-mail</a>
-    </section>
+  <div class="modal" id="noteModal" aria-hidden="true">
+    <div class="sheet">
+      <h3 id="noteTitle">Notitie</h3>
+      <textarea id="noteText" placeholder="Schrijf hier je notitie..."></textarea>
+      <div class="actions">
+        <button class="btn" id="cancelNote" type="button">Sluiten</button>
+        <button class="btn danger" id="clearNote" type="button">Wis notitie</button>
+        <button class="btn primary" id="saveNote" type="button">Opslaan</button>
+      </div>
+    </div>
+  </div>
 
-    <p class="foot">Tip: vervang de links hierboven met je definitieve URL's.</p>
-  </main>
+  <script>
+    const schedule = [
+      {
+        title: "Week 14 (ma 16 mrt - zo 22 mrt)",
+        items: [
+          { id: "w14-wo", text: "Woensdag: 5 km rustig" },
+          { id: "w14-za", text: "Zaterdag: 12 km rustig" }
+        ]
+      },
+      {
+        title: "Week 15 (ma 23 mrt - zo 29 mrt)",
+        items: [
+          { id: "w15-ma", text: "Maandag: 8 km rustig" },
+          { id: "w15-wo-do", text: "Woensdag of donderdag (± 10 km): 2 km inlopen + 4 x 5 min heuvelop stevig + rustig naar beneden + 2 km uitlopen" },
+          { id: "w15-za", text: "Zaterdag: 24 km trail" }
+        ]
+      },
+      {
+        title: "Week 16 (ma 30 mrt - zo 5 apr)",
+        items: [
+          { id: "w16-ma", text: "Maandag: 8 km rustig" },
+          { id: "w16-wo-do", text: "Woensdag of donderdag (± 12 km): 2 km inlopen + 3 x 10 min tempo + 3 min rustig + 2 km uitlopen" },
+          { id: "w16-za", text: "Zaterdag: 28 km trail" }
+        ]
+      },
+      {
+        title: "Week 17 (ma 6 apr - zo 12 apr)",
+        items: [
+          { id: "w17-ma", text: "Maandag: 8 km rustig" },
+          { id: "w17-wo-do", text: "Woensdag of donderdag (± 10 tot 11 km): 2 km inlopen + 8 tot 10 x 3 min klimmen + rustig naar beneden + 2 km uitlopen" },
+          { id: "w17-za", text: "Zaterdag: 30 km trail" }
+        ]
+      },
+      {
+        title: "Week 18 (ma 13 apr - zo 19 apr, start 4x per week)",
+        items: [
+          { id: "w18-ma", text: "Maandag: 8 km rustig" },
+          { id: "w18-wo-do", text: "Woensdag of donderdag (± 12 km): 2 km inlopen + 40 min steady tempo + 2 km uitlopen" },
+          { id: "w18-za", text: "Zaterdag: 28 km trail" },
+          { id: "w18-zo", text: "Zondag: 18 km rustig" }
+        ]
+      },
+      {
+        title: "Week 19 (ma 20 apr - zo 26 apr) - Piekweek",
+        items: [
+          { id: "w19-ma", text: "Maandag: 8 km rustig" },
+          { id: "w19-wo-do", text: "Woensdag of donderdag (± 10 km): 2 km inlopen + 6 x 1 min krachtig heuvelop + rustig terug + 2 km uitlopen" },
+          { id: "w19-za", text: "Zaterdag: 32 km trail" },
+          { id: "w19-zo", text: "Zondag: 24 km trail" }
+        ]
+      },
+      {
+        title: "Week 20 (ma 27 apr - zo 3 mei) - Eerste taper",
+        items: [
+          { id: "w20-ma", text: "Maandag: 6 tot 7 km rustig" },
+          { id: "w20-wo-do", text: "Woensdag of donderdag (± 8 tot 9 km): 2 km inlopen + 2 x 8 min tempo + 3 min rustig + 2 km uitlopen" },
+          { id: "w20-za", text: "Zaterdag: 20 km rustig trail" },
+          { id: "w20-zo", text: "Zondag: 12 km rustig" }
+        ]
+      },
+      {
+        title: "Week 21 (ma 4 mei - zo 10 mei) - Wedstrijdweek",
+        items: [
+          { id: "w21-ma", text: "Maandag: 6 km rustig" },
+          { id: "w21-wo-do", text: "Woensdag of donderdag (6 tot 8 km): 2 km inlopen + 3 tot 4 x 1 min vlot + 1 min rustig + 2 km uitlopen" },
+          { id: "w21-za-race", text: "Zaterdag 9 mei: 🏁 Koning van Spanje Trail 85 km" }
+        ]
+      }
+    ];
+
+    const stateKey = "kalender-koning-van-spanje-v1";
+    let state = loadState();
+    let currentNoteId = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(stateKey);
+        return raw ? JSON.parse(raw) : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(stateKey, JSON.stringify(state));
+    }
+
+    function getItemState(id) {
+      if (!state[id]) {
+        state[id] = { checked: false, mood: "", note: "" };
+      }
+      return state[id];
+    }
+
+    function render() {
+      const root = document.getElementById("weeks");
+      root.innerHTML = "";
+
+      schedule.forEach((week) => {
+        const w = document.createElement("section");
+        w.className = "week";
+
+        const h2 = document.createElement("h2");
+        h2.textContent = week.title;
+        w.appendChild(h2);
+
+        week.items.forEach((item) => {
+          const s = getItemState(item.id);
+          const card = document.createElement("article");
+          card.className = "item" + (s.checked ? " done" : "");
+
+          const row = document.createElement("div");
+          row.className = "row";
+
+          const check = document.createElement("input");
+          check.className = "check";
+          check.type = "checkbox";
+          check.checked = !!s.checked;
+          check.addEventListener("change", () => {
+            getItemState(item.id).checked = check.checked;
+            saveState();
+            render();
+          });
+
+          const label = document.createElement("div");
+          label.className = "label";
+          label.textContent = item.text;
+
+          const moods = document.createElement("div");
+          moods.className = "moods";
+
+          const moodDefs = [
+            { key: "bad", text: "☹", title: "Verdrietig", cls: "bad" },
+            { key: "neutral", text: "😐", title: "Neutraal", cls: "neutral" },
+            { key: "good", text: "☺", title: "Lachend", cls: "good" }
+          ];
+
+          moodDefs.forEach((m) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "mood " + m.cls + (s.mood === m.key ? " active " + m.cls : "");
+            b.textContent = m.text;
+            b.title = m.title;
+            b.setAttribute("aria-pressed", s.mood === m.key ? "true" : "false");
+            b.addEventListener("click", () => {
+              const st = getItemState(item.id);
+              st.mood = st.mood === m.key ? "" : m.key;
+              saveState();
+              render();
+            });
+            moods.appendChild(b);
+          });
+
+          const noteBtn = document.createElement("button");
+          noteBtn.type = "button";
+          noteBtn.className = "note-btn" + (s.note ? " has-note" : "");
+          noteBtn.textContent = s.note ? "Notitie (1)" : "Notitie";
+          noteBtn.addEventListener("click", () => openNote(item.id, item.text));
+
+          row.appendChild(check);
+          row.appendChild(label);
+          row.appendChild(moods);
+          row.appendChild(noteBtn);
+          card.appendChild(row);
+          w.appendChild(card);
+        });
+
+        root.appendChild(w);
+      });
+      updateProgress();
+    }
+
+    function updateProgress() {
+      let totalItems = 0;
+      let checkedItems = 0;
+      schedule.forEach((week) => {
+        week.items.forEach((item) => {
+          totalItems += 1;
+          if (getItemState(item.id).checked) checkedItems += 1;
+        });
+      });
+      const pct = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+
+      document.getElementById("progressFill").style.width = pct + "%";
+      document.getElementById("progressPct").textContent = pct + "%";
+    }
+
+    function openNote(id, label) {
+      currentNoteId = id;
+      const modal = document.getElementById("noteModal");
+      const title = document.getElementById("noteTitle");
+      const text = document.getElementById("noteText");
+      title.textContent = "Notitie: " + label;
+      text.value = getItemState(id).note || "";
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      setTimeout(() => text.focus(), 20);
+    }
+
+    function closeNote() {
+      const modal = document.getElementById("noteModal");
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      currentNoteId = null;
+    }
+
+    document.getElementById("saveNote").addEventListener("click", () => {
+      if (!currentNoteId) return;
+      getItemState(currentNoteId).note = document.getElementById("noteText").value.trim();
+      saveState();
+      closeNote();
+      render();
+    });
+
+    document.getElementById("clearNote").addEventListener("click", () => {
+      if (!currentNoteId) return;
+      getItemState(currentNoteId).note = "";
+      saveState();
+      closeNote();
+      render();
+    });
+
+    document.getElementById("cancelNote").addEventListener("click", closeNote);
+    document.getElementById("noteModal").addEventListener("click", (e) => {
+      if (e.target.id === "noteModal") closeNote();
+    });
+
+    render();
+  </script>
 </body>
 </html>
